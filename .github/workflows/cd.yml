@@ -21,11 +21,14 @@ jobs:
       - name: Build
         run: ./scripts/buildprod.sh
 
-      - name: Set up gcloud CLI
-        uses: google-github-actions/setup-gcloud@v1
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v2
         with:
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
           workload_identity_provider: ${{ secrets.GCP_WORKLOAD_PROVIDER }}
+
+      - name: Set up gcloud CLI
+        uses: google-github-actions/setup-gcloud@v1
 
       - name: Build and push Docker image
         run: |
